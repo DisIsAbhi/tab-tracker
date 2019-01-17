@@ -10,7 +10,6 @@ export default new Router({
     {
       path: '/',
       name: 'HelloWorld',
-      historyApiFallback: true,
       component: HelloWorld
     },
     {
