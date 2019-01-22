@@ -9,6 +9,16 @@ module.exports = {
       dialect: process.env.DIALECT || 'sqlite',
       host: process.env.HOST || 'localhost',
       storage: './tabtracker.sqlite'
+    },
+    define: {
+      charset: 'utf8mb4',
+      timestamps: false,
+      dialectOptions: {
+        collate: 'utf8mb4_general_ci'
+      }
     }
+  },
+  authentication: {
+    jwtSecret: process.env.JWT_SECRET || 'secret'
   }
 }

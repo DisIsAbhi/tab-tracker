@@ -1,7 +1,7 @@
 <template>
   <v-layout column>
     <v-flex xs5 offset-xs1>
-      <panel title="Register">
+      <panel title="Login">
         <form>
          <v-text-field
             label="email"
@@ -11,12 +11,11 @@
             label="password"
             type="password"
             v-model="password"
-            autocomplete="new-password"
           ></v-text-field>
         <div class="error" v-html="error" />
-        <v-btn class="cyan" dark @click="register">Register</v-btn>
+        <v-btn class="cyan" dark @click="login">Login</v-btn>
         </form>
-      </panel>
+    </panel>
     </v-flex>
   </v-layout>
 </template>
@@ -24,6 +23,7 @@
 <script>
 import AuthenticationService from '@/services/AuthenticationService'
 import Panel from '@/components/Panel'
+
 export default {
   data () {
     return {
@@ -33,9 +33,9 @@ export default {
     }
   },
   methods: {
-    async register () {
+    async login () {
       try {
-        const response = await AuthenticationService.register({
+        const response = await AuthenticationService.login({
           email: this.email,
           password: this.password
         })
