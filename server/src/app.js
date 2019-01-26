@@ -18,7 +18,7 @@ app.use(cors())
 
 require('./routes')(app)
 
-sequelize.sync()
+sequelize.sync({ force: false })
   // Do not use this. it will drop tables
   // {
   //   force: true

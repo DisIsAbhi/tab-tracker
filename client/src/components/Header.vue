@@ -10,14 +10,13 @@
         </v-toolbar-title>
 
         <!--TODDO: Implement Me-->
-        <v-toolbaar-items>
+        <v-toolbar-items>
            <v-btn
               flat dark
               @click="navigateTo({name: 'songs'})">
               Browse
             </v-btn>
-        </v-toolbaar-items>
-
+        </v-toolbar-items>
         <v-spacer></v-spacer>
         <v-toolbar-items>
             <v-btn
