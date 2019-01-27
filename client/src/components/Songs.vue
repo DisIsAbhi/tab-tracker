@@ -15,7 +15,7 @@
               fab>
             <v-icon>add</v-icon>
           </v-btn>
-          <div 
+          <div
             class="song"
             v-for="song in songs"
             :key="song.id">
@@ -30,11 +30,11 @@
                 <div class="song-genere">
                   {{song.genre}}
                 </div>
-                <v-btn 
-                dark
-                class="cyan"
-                @click="navigateTo({
-                  name: 'song', 
+                <v-btn
+                  dark
+                  class="cyan"
+                  @click="navigateTo({
+                  name: 'song',
                   params: {songId: song.id}
                 })">
                 View
