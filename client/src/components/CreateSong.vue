@@ -35,7 +35,7 @@
             </v-text-field>
             <v-text-field
                 label="YouTubeID"
-         required
+                required
                 :rules="[required]"
                 v-model="song.youtubeId">
             </v-text-field>
@@ -43,20 +43,18 @@
       </v-flex>
       <v-flex xs8>
         <panel title="Song Structure">
-            <v-text-field
+            <v-textarea
                 label="Lyrics"
-                multi-line
                 required
                 :rules="[required]"
                 v-model="song.lyrics">
-            </v-text-field>
-            <v-text-field
+            </v-textarea>
+            <v-textarea
                 label="Tab"
-                multi-line
-         required
+                required
                 :rules="[required]"
                 v-model="song.tab">
-            </v-text-field>
+            </v-textarea>
         </panel>
 
         <div class="danger-alert" v-if="error">
@@ -74,7 +72,6 @@
 </template>
 
 <script>
-import Panel from '@/components/Panel'
 import SongsService from '@/services/SongsService'
 export default {
   data () {
@@ -112,9 +109,6 @@ export default {
         console.log(err)
       }
     }
-  },
-  components: {
-    Panel
   }
 }
 </script>

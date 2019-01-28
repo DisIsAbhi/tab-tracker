@@ -32,6 +32,8 @@ export default {
 }
 .cyan {
   color: white;
+  text-align: left;
+  padding: 0%;
 }
 .danger-alert {
     color: red;
