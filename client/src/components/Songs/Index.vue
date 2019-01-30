@@ -1,7 +1,14 @@
 /* eslint-disable */
 <template>
-  <v-layout column>
-    <v-flex xs5 offset-xs1>
+  <v-layout>
+    <v-flex xs4 v-if="isUserLoggedIn">
+      <songs-bookmarks />
+      <recently-viewed-songs class="mt-2"/>
+      </v-flex>
+    <v-flex :class="{
+      xs12: !isUserLoggedIn,
+      xs8: isUserLoggedIn
+      }">
       <songs-search-panel class="mt-2" />
       <songs-panel />
     </v-flex>
@@ -11,12 +18,18 @@
 <script>
 
 import SongsService from '@/services/SongsService'
+import SongsBookmarks from './SongsBookmarks'
+import RecentlyViewedSongs from './RecentlyViewedSongs'
 import SongsPanel from '@/components/Songs/SongsPanel'
 import SongsSearchPanel from '@/components/Songs/SongsSearchPanel'
+import { mapState } from 'vuex'
+
 export default {
   components: {
     SongsPanel,
-    SongsSearchPanel
+    SongsSearchPanel,
+    SongsBookmarks,
+    RecentlyViewedSongs
   },
   data () {
     return {
@@ -28,10 +41,15 @@ export default {
   //     this.$router.push(route)
   //   }
   // },
+  computed: {
+    ...mapState([
+      'isUserLoggedIn'
+    ])
+  },
   async mounted () {
     // do a request to the backend for all songs
     this.songs = (await SongsService.index()).data
-    console.log('songs', this.songs)
+    // console.log('songs', this.songs)
   }
 }
 </script>

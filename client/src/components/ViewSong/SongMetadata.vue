@@ -12,12 +12,11 @@
               <div class="song-genere">
                 {{song.genre}}
               </div>
-            
               <v-btn
                   v-if="isUserLoggedIn"
                   dark
                   small
-                  class="cyan"
+                  class="cyan one"
                   :to="{
                     name: 'song-edit',
                     params () {
@@ -36,19 +35,18 @@
                 v-if="isUserLoggedIn && !bookmark"
                 dark
                 small
-                class="cyan"
+                class="cyan two"
                 @click="setAsBookmark">
-                Set As Bookmark
+                Set Bookmark
               </v-btn>
               <v-btn
                 v-if="isUserLoggedIn && bookmark"
                 dark
                 small
-                class="cyan"
+                class="cyan two"
                 @click="unsetAsBookmark">
-                Unset As Bookmark
+                Unset Bookmark
               </v-btn>
-            
             </v-flex>
             <v-flex xs6>
               <img class="album-image" :src="song.albumImageUrl"/>
@@ -74,17 +72,15 @@ export default {
   },
   computed: {
     ...mapState([
-      'isUserLoggedIn'
+      'isUserLoggedIn',
+      'user'
     ])
   },
   methods: {
     async setAsBookmark () {
       try {
-        // console.log(`songid: ` + this.song.id)
-        // console.log(`userId: ` + this.$store.state.user.id)
         this.bookmark = (await BookmarksService.post({
-          songId: this.song.id,
-          userId: this.$store.state.user.id
+          songId: this.song.id
         })).data
       } catch (err) {
         console.log(err)
@@ -100,14 +96,21 @@ export default {
       }
     }
   },
-  async mounted () {
-    console.log(this.isBookmarked)
-    if (!this.isUserLoggedIn) {
-    } else {
-      this.bookmark = (await BookmarksService.index({
-        songId: this.song.id,
-        userId: this.$store.state.user.id
-      })).data
+  watch: {
+    async song () {
+      console.log(this.isBookmarked)
+      if (!this.isUserLoggedIn) {
+      }
+      try {
+        const bookmarks = (await BookmarksService.index({
+          songId: this.song.id
+        })).data
+        if (bookmarks.length) {
+          this.bookmark = bookmarks[0]
+        }
+      } catch (err) {
+        console.log(err)
+      }
       this.isBookmarked = !!this.bookmark
     }
   }
@@ -133,5 +136,12 @@ font-size: 18px;
 .album-image {
   width: 70%;
   margin: 0 auto;
+}
+.cyan.one {
+  min-width: 0;
+  width: 50px;
+}
+.cyan.two {
+  width: auto;
 }
 </style>
